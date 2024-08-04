@@ -15,7 +15,7 @@ class TestCreateUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email, пароле и имени пользователя
-        response = requests.post(DataUrl.Url_create_user, data=user_data)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -29,7 +29,7 @@ class TestCreateUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email, пароле и имени пользователя
-        response = requests.post(DataUrl.Url_create_user, data=user_data)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data)
         # Проверяем, что статус ответа равен 403
         assert response.status_code == 403
 
@@ -42,6 +42,6 @@ class TestCreateUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email и имени пользователя
-        response = requests.post(DataUrl.Url_create_user, data=user_data)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data)
         # Проверяем, что статус ответа равен 403
         assert response.status_code == 403

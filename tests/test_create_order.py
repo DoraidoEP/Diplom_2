@@ -15,10 +15,10 @@ class TestCreateOrder:
                 'name': generate_user_name()
         }
         # Отправляем POST и GET запросы на указанный URL с данными о email, пароле и имени пользователя
-        requests.post(DataUrl.Url_login_user, data=user_data)
-        requests.get(DataUrl.Url_login_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
+        requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Отправляем POST-запрос на указанный URL с данными об ингредиентах
-        response = requests.post(DataUrl.Url_create_order, data=Ingredients.burger_existing)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_order}', data=Ingredients.burger_existing)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -32,9 +32,10 @@ class TestCreateOrder:
                 'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email, пароле и имени пользователя
-        requests.post(DataUrl.Url_login_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Отправляем POST-запрос на указанный URL с данными об ингредиентах
-        response = requests.post(DataUrl.Url_create_order, data=Ingredients.burger_existing)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_order}',
+                                 data=Ingredients.burger_existing)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -48,9 +49,9 @@ class TestCreateOrder:
                 'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email, пароле и имени пользователя
-        requests.post(DataUrl.Url_login_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Отправляем POST-запрос на указанный URL с данными об ингредиентах
-        response = requests.post(DataUrl.Url_create_order, data=Ingredients.burger_empty)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_order}', data=Ingredients.burger_empty)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 400
 
@@ -64,8 +65,8 @@ class TestCreateOrder:
                 'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными о email, пароле и имени пользователя
-        requests.post(DataUrl.Url_login_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Отправляем POST-запрос на указанный URL с данными об ингредиентах
-        response = requests.post(DataUrl.Url_create_order, data=Ingredients.non_existent_burger)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_order}', data=Ingredients.non_existent_burger)
         # Проверяем, что статус ответа равен 500
         assert response.status_code == 500

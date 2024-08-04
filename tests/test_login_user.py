@@ -15,8 +15,8 @@ class TestLoginUser:
             'name': Data.name
         }
         # Отправляем GET-запрос на указанный URL с данными пользователя
-        requests.get(DataUrl.Url_login_user, data=user_data)
-        response = requests.get(DataUrl.Url_login_user, data=user_data)
+        requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
+        response = requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -30,7 +30,7 @@ class TestLoginUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными пользователя
-        response = requests.post(DataUrl.Url_login_user, data=user_data)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Проверяем, что статус ответа равен 401
         assert response.status_code == 401
 
@@ -44,6 +44,6 @@ class TestLoginUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL с данными пользователя
-        response = requests.post(DataUrl.Url_login_user, data=user_data)
+        response = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Проверяем, что статус ответа равен 401
         assert response.status_code == 401

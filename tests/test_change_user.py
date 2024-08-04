@@ -20,14 +20,16 @@ class TestChangeUser:
             'password': generate_user_pass(),
             'name': generate_user_name()
         }
+        # f'{url_constants.URL + url_constants.LOGIN_USER}'
         # Отправляем POST-запрос на указанный URL(создание пользователя) с данными первого пользователя
-        requests.post(DataUrl.Url_create_user, data=user_data_1)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data_1)
         # Отправляем POST-запрос на указанный URL(вход в систему) с данными первого пользователя
-        user_data = requests.post(DataUrl.Url_login_user, data=user_data_1)
+        user_data = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data_1)
         # Извлечение токена доступа
         token = user_data.json()['accessToken']
         # Отправляем GET-запрос на указанный URL на изменение данных пользователя
-        response = requests.get(DataUrl.Url_changing_user_data, headers={'Authorization': token}, data=user_data_2)
+        response = requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_changing_user_data}',
+                                headers={'Authorization': token}, data=user_data_2)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -47,8 +49,8 @@ class TestChangeUser:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL(создание пользователя) с данными первого пользователя
-        requests.post(DataUrl.Url_create_user, data=user_data_1)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data_1)
         # Отправляем GET-запрос на указанный URL на изменение данных пользователя
-        response = requests.get(DataUrl.Url_changing_user_data, data=user_data_2)
+        response = requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_changing_user_data}', data=user_data_2)
         # Проверяем, что статус ответа равен 401
         assert response.status_code == 401

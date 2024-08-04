@@ -15,13 +15,14 @@ class TestOrderList:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL(создание пользователя) с данными пользователя
-        requests.post(DataUrl.Url_create_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data)
         # Отправляем POST-запрос на указанный URL(вход в систему) с данными пользователя
-        login = requests.post(DataUrl.Url_login_user, data=user_data)
+        login = requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_login_user}', data=user_data)
         # Извлечение токена доступа
         token = login.json()['accessToken']
         # Отправляем GET-запрос на указанный URL для получения списка заказов
-        response = requests.get(DataUrl.Url_orders_from_user, headers={'Authorization': token}, data=user_data)
+        response = requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_order}',
+                                headers={'Authorization': token}, data=user_data)
         # Проверяем, что статус ответа равен 200
         assert response.status_code == 200
 
@@ -35,8 +36,8 @@ class TestOrderList:
             'name': generate_user_name()
         }
         # Отправляем POST-запрос на указанный URL(создание пользователя) с данными пользователя
-        requests.post(DataUrl.Url_create_user, data=user_data)
+        requests.post(f'{DataUrl.Url_main_page + DataUrl.Url_create_user}', data=user_data)
         # Отправляем GET-запрос на указанный URL для получения списка заказов
-        response = requests.get(DataUrl.Url_orders_from_user, data=user_data)
+        response = requests.get(f'{DataUrl.Url_main_page + DataUrl.Url_order}', data=user_data)
         # Проверяем, что статус ответа равен 401
         assert response.status_code == 401
